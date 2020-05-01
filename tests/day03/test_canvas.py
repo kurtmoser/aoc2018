@@ -1,7 +1,7 @@
 from aoc2018.day03.canvas import Canvas
 import unittest
 
-class TestFoo(unittest.TestCase):
+class TestCanvas(unittest.TestCase):
     def test_canvas_overlaps_are_calculated(self):
         canvas = Canvas()
         canvas.add_slices([
