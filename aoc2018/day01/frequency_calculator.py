@@ -1,5 +1,6 @@
 class FrequencyCalculator():
-    frequencies = []
+    def __init__(self):
+        self.frequencies = []
 
     def load_data(self, data):
         self.frequencies = []
