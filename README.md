@@ -25,3 +25,11 @@ For part 2 create new dict of workers with key representing step and value time 
 Note: When we want to keep original deps of instance then self.deps_list.copy() is not enough. This creates shallow copy and all the lists in deps_list are copied by reference. Use copy module's deepcopy instead.
 
 See also: Topological sorting, networkx.lexicographical_topological_sort, networkx.DiGraph
+
+### Day 8
+
+For each node the we know only starting position of its first child (or of metadata if node has no children). To get starting position of the second node we need to first recursively build all child nodes of that first child. After first child node has been built we know the exact length of it and can calculate starting position for the next one to repeat the process with it.
+
+Metadata sums can be precalculated once during initial tree construction, but for now they have been left into their own methods doing these calculations runtime.
+
+Thing to note about other people solutions is that several of them use input data as (reversed) stack and keep popping/discarding data from it while building nodes. There really is little point of keeping initial data list intact and this provides for some nice clean solutions.
