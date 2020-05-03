@@ -33,3 +33,11 @@ For each node the we know only starting position of its first child (or of metad
 Metadata sums can be precalculated once during initial tree construction, but for now they have been left into their own methods doing these calculations runtime.
 
 Thing to note about other people solutions is that several of them use input data as (reversed) stack and keep popping/discarding data from it while building nodes. There really is little point of keeping initial data list intact and this provides for some nice clean solutions.
+
+### Day 9
+
+Initial idea was to solve for first couple of hundred marbles using naive list building approach to see if there is any pattern in scoring (more specifically in the marbles positioned 7 spots ahead of active one during scroring round). Apparently there was none.
+
+But naive approach using a list proved to be fast enough to solve part 1. Once part 2 increased iteration count by 100 it was clear naive approach is not enough and next idea was to replace it with linked lists. This proved to be not only fast enough to solve part 2 but also the approach that was apparently intended as majority of other people's solutions used linked lists also (some Python solvers used more specifically collections.deque)
+
+See also: collections.deque
