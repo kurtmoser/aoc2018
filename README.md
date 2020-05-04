@@ -41,3 +41,9 @@ Initial idea was to solve for first couple of hundred marbles using naive list b
 But naive approach using a list proved to be fast enough to solve part 1. Once part 2 increased iteration count by 100 it was clear naive approach is not enough and next idea was to replace it with linked lists. This proved to be not only fast enough to solve part 2 but also the approach that was apparently intended as majority of other people's solutions used linked lists also (some Python solvers used more specifically collections.deque)
 
 See also: collections.deque
+
+### Day 10
+
+Question may be how to detect the right time moment when stars are aligned. A good candidate for this moment is when stars are closest to each-other. So lets keep moving stars forward until we reach point when area covered by stars is at its minimum.
+
+It is likely that algorithm can be optimized by tracking single axis length change instead of area or by tracking only couple of points at the extremes.
