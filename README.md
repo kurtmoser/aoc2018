@@ -47,3 +47,13 @@ See also: collections.deque
 Question may be how to detect the right time moment when stars are aligned. A good candidate for this moment is when stars are closest to each-other. So lets keep moving stars forward until we reach point when area covered by stars is at its minimum.
 
 It is likely that algorithm can be optimized by tracking single axis length change instead of area or by tracking only couple of points at the extremes.
+
+# Day 11
+
+Part 1 can be solved using brute force and calculating each 3x3 square's power on runtime. Due to large amount of operations part 2 requires some optimization. I took the approach of precalculating powers (with height of square size) of separate columns, this way moving from left to right we only need single addition and subtraction of column to calculate power of the next square.
+
+Looking at other people's solutions there are even better ways to solve part 2 using partial sums etc.
+
+Note: To initialize 2-dimensional list we cannot use *grid = [[0] * x] * y]*. Inner list will be created only once and used by reference so changing value in one row changes it in all the others also. Use *grid = [[0 for i in range(x)] for j in range(y)]* instead.
+
+See also: Partial sums, summed-area table
