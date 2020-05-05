@@ -48,7 +48,7 @@ Question may be how to detect the right time moment when stars are aligned. A go
 
 It is likely that algorithm can be optimized by tracking single axis length change instead of area or by tracking only couple of points at the extremes.
 
-# Day 11
+### Day 11
 
 Part 1 can be solved using brute force and calculating each 3x3 square's power on runtime. Due to large amount of operations part 2 requires some optimization. I took the approach of precalculating powers (with height of square size) of separate columns, this way moving from left to right we only need single addition and subtraction of column to calculate power of the next square.
 
@@ -57,3 +57,9 @@ Looking at other people's solutions there are even better ways to solve part 2 u
 Note: To initialize 2-dimensional list we cannot use *grid = [[0] * x] * y]*. Inner list will be created only once and used by reference so changing value in one row changes it in all the others also. Use *grid = [[0 for i in range(x)] for j in range(y)]* instead.
 
 See also: Partial sums, summed-area table
+
+### Day 12
+
+This task is at its core just string building with the help of hashmap. Note that we cannot replace values in-place as each value depends on the ones preceding and following it and we don't want to tamper value at position i if it is being later used by i+1 and i+2. So at each iteration lets build a new plants string from scratch. As plants may spread beyond initial string boundaries we need to keep also track of evolving string's starting position (at the beginning it is 0) so that we can later calculate checksum based on plants positions correctly.
+
+Part 2 can be solved by evolving string up to a point where we start noticing definite pattern in checksum change. After that it is a matter of simple multiplication.
