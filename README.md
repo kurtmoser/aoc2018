@@ -63,3 +63,13 @@ See also: Partial sums, summed-area table
 This task is at its core just string building with the help of hashmap. Note that we cannot replace values in-place as each value depends on the ones preceding and following it and we don't want to tamper value at position i if it is being later used by i+1 and i+2. So at each iteration lets build a new plants string from scratch. As plants may spread beyond initial string boundaries we need to keep also track of evolving string's starting position (at the beginning it is 0) so that we can later calculate checksum based on plants positions correctly.
 
 Part 2 can be solved by evolving string up to a point where we start noticing definite pattern in checksum change. After that it is a matter of simple multiplication.
+
+### Day 13
+
+Split carts from tracks so that we have a clean map of tracks not cluttered by carts and separate list of tracks with their x,y coords, moving speeds and state for where to turn at the next intersection.
+
+Order by which the carts are being moved is important because when 2 carts move towards eachother and are separated by no units then the first cart to move causes collision at the position of the second cart (and not vice-versa). This also means that collisions need to be checked after every single cart move and not only once all the carts have been moved.
+
+An interesting approach presented in solutions megathread is using complex numbers to represent positions and velocities on x,y grid. Also take note how turning becomes a simple multiplication of velocity by +1j or -1j in that case.
+
+Note: To iterate over list indexes and values use *for i, v in enumerate(list)*
