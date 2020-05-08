@@ -73,3 +73,9 @@ Order by which the carts are being moved is important because when 2 carts move 
 An interesting approach presented in solutions megathread is using complex numbers to represent positions and velocities on x,y grid. Also take note how turning becomes a simple multiplication of velocity by +1j or -1j in that case.
 
 Note: To iterate over list indexes and values use *for i, v in enumerate(list)*
+
+### Day 14
+
+Both parts can be (or rather are intended to be) solved by brute force. Pay attention that at each step we add either one or two new recipes to the list (recipe sums range from 0+0=0 to 9+9=18). This means that for part 2 when growing recipes list we cannot assume that pattern we are looking for occurs exactly at the end of recipes list - if two recipes were added then pattern may also be shifted one to the left (i.e. we need to check for sublist at 2 different positions).
+
+Slight optimization can be added by tracking whether we added one or two recipes on last iteration and avoiding second sublist check unless indeed necessary (this accounted for ~16s -> ~14s speed bump for part 2 on test machine but was left uncommited).
