@@ -83,3 +83,11 @@ Slight optimization can be added by tracking whether we added one or two recipes
 ### Day 16
 
 Part 1 is straightforward execution of all possible operations over each sample instruction input and comparing received output with expected one. For part 2 gather possible decoded opcode candidates for encoded opcodes over all the samples. One encoded opcode will have exactly one decoded opcode candidate. Remove this decoded opcode from every other candidates list. Another encoded opcode will now have a single candidate. Repeat until all encoded opcodes has single decoded counterpart. Now we can translate encoded opcodes of input program to decoded ones and run program. Method deduct_opcodes itself is a bit out of place for Computer class, but lets keep it there for now.
+
+### Day 17
+
+We need to simulate two things here: water flowing down and water spreading sideways. For first we use top-bottom approach so any water in the air expands until it reaches bucket. For second we use bottom-top approach so any water at the bottom of the buckets fills it row by row up to the top (+ one additional row of flowing water above it). Repeat these operations until nothing changes any more when water is flowing downwards - this means that we have reached bottom of our grid.
+
+For spreading water sideways track separately towards left and right and for each side check whether we reach a wall or a bottom disappears under the water. Also if bottom disappears then mark this row of water as flowing (we differentiate between still water '~' and flowing water '|').
+
+After initally solving using 2-dimensional list for grid, I experimented by replacing it with defaultdict but that caused program to run more than twice as slow.
