@@ -79,3 +79,7 @@ Note: To iterate over list indexes and values use *for i, v in enumerate(list)*
 Both parts can be (or rather are intended to be) solved by brute force. Pay attention that at each step we add either one or two new recipes to the list (recipe sums range from 0+0=0 to 9+9=18). This means that for part 2 when growing recipes list we cannot assume that pattern we are looking for occurs exactly at the end of recipes list - if two recipes were added then pattern may also be shifted one to the left (i.e. we need to check for sublist at 2 different positions).
 
 Slight optimization can be added by tracking whether we added one or two recipes on last iteration and avoiding second sublist check unless indeed necessary (this accounted for ~16s -> ~14s speed bump for part 2 on test machine but was left uncommited).
+
+### Day 16
+
+Part 1 is straightforward execution of all possible operations over each sample instruction input and comparing received output with expected one. For part 2 gather possible decoded opcode candidates for encoded opcodes over all the samples. One encoded opcode will have exactly one decoded opcode candidate. Remove this decoded opcode from every other candidates list. Another encoded opcode will now have a single candidate. Repeat until all encoded opcodes has single decoded counterpart. Now we can translate encoded opcodes of input program to decoded ones and run program. Method deduct_opcodes itself is a bit out of place for Computer class, but lets keep it there for now.
