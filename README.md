@@ -91,3 +91,13 @@ We need to simulate two things here: water flowing down and water spreading side
 For spreading water sideways track separately towards left and right and for each side check whether we reach a wall or a bottom disappears under the water. Also if bottom disappears then mark this row of water as flowing (we differentiate between still water '~' and flowing water '|').
 
 After initally solving using 2-dimensional list for grid, I experimented by replacing it with defaultdict but that caused program to run more than twice as slow.
+
+### Day 22
+
+Part 1 is straightforward - first calculate erosion level for borders, then calculate erosion levels for inner grid line by line. After that risk level is just sum erosion level mods over matrix.
+
+Part 2 took some time to figure out what is the best approach to perform breadth first search where some steps take longer time then others (due to gear change). So for each coordinate I stored path how I got there (as a string of single char directions), but if the next move required gear change then I added to the new path not only new direction but also 7 additional characters for gear change. When simple breadth first search has new paths in queue already in shortest first order then now I needed to sort queue paths by length before picking next one.
+
+There was another issue with part 2 I struggled with - although algorithm worked (accidentally) correctly on sample data it gave close but not correct result on real input. Finally figured out the reason was that we cannot consider position visited simply based on coordinates. Instead we need to take into account also gear we are currently equipped with. Arriving at (x,y) with climbing gear generates different optimal path forward than arriving with torch or neither. Thus we need to rather keep track whether (x,y,gear) state has been visited and not just (x,y) position.
+
+See also: Dijkstra's algorithm, A* search algorithm, networkx.dijkstra_path_length
