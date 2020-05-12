@@ -96,8 +96,14 @@ After initally solving using 2-dimensional list for grid, I experimented by repl
 
 Part 1 is straightforward - first calculate erosion level for borders, then calculate erosion levels for inner grid line by line. After that risk level is just sum erosion level mods over matrix.
 
-Part 2 took some time to figure out what is the best approach to perform breadth first search where some steps take longer time then others (due to gear change). So for each coordinate I stored path how I got there (as a string of single char directions), but if the next move required gear change then I added to the new path not only new direction but also 7 additional characters for gear change. When simple breadth first search has new paths in queue already in shortest first order then now I needed to sort queue paths by length before picking next one.
+Part 2 took some time to figure out what is the best approach to perform breadth first search where some steps take longer time than others (due to gear change). So for each coordinate I stored path how I got there (as a string of single char directions), but if the next move required gear change then I added to the new path not only new direction but also 7 additional characters for gear change. When simple breadth first search has new paths in queue already in shortest first order then now I needed to sort queue paths by length before picking next one.
 
 There was another issue with part 2 I struggled with - although algorithm worked (accidentally) correctly on sample data it gave close but not correct result on real input. Finally figured out the reason was that we cannot consider position visited simply based on coordinates. Instead we need to take into account also gear we are currently equipped with. Arriving at (x,y) with climbing gear generates different optimal path forward than arriving with torch or neither. Thus we need to rather keep track whether (x,y,gear) state has been visited and not just (x,y) position.
 
 See also: Dijkstra's algorithm, A* search algorithm, networkx.dijkstra_path_length
+
+### Day 24
+
+We mostly need to be just careful to implement all the rules and calculations correctly for choosing right attackers and targets. I used single groups list that I kept sorting to allow picking attackers in the correct order. Groups were never removed but rather ignored once their units count reached 0.
+
+For part 2 there are couple of tricky situations that may cause the battle to remain in loop and never end: 1) last remaining groups of opposite type may be immune to each other's damage; 2) last remaining groups may have too low attack damage to cause any change in target group's units count. If these situations are being handled correctly then finding minimum necessary immune system boost is just a matter of looping the simulation with increasing boost until immune system wins.
