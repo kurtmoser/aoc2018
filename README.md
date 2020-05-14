@@ -100,6 +100,10 @@ Since iteration count for part 2 is large, it seems reasonable to attempt to fin
 
 See also: Conway's Game of Life, Floyd's Tortoise and Hare
 
+### Day 19
+
+Part 1 runs in meaningful time giving us answer without problems. Part 2 is very time-consuming so solution is to decode and understand what program is doing, then calculate result via another means if possible. Inspecting part 1 we can see that it returns sum of all the prime factors of a value stored in register 2. So for part 2 figure out what is the value in register 2 and find sum of its prime factors.
+
 ### Day 22
 
 Part 1 is straightforward - first calculate erosion level for borders, then calculate erosion levels for inner grid line by line. After that risk level is just sum erosion level mods over matrix.
