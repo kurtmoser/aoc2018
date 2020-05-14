@@ -92,6 +92,14 @@ For spreading water sideways track separately towards left and right and for eac
 
 After initally solving using 2-dimensional list for grid, I experimented by replacing it with defaultdict but that caused program to run more than twice as slow.
 
+### Day 18
+
+Part 1 is implementing variation of Conway's Game of Life over small number of iterations. An interesting note from discussions was that since each state can evolve only into single next one then by using letters to indicate cell type ('o' - open ground, 't' - trees, 'l' - lumberyard) we can perform evolution in-place by swapping case for cells that are going to change. Once evolution for all cells has been calculated we move over grid and replace the ones containing uppercase values with their new states.
+
+Since iteration count for part 2 is large, it seems reasonable to attempt to find some kind of a cycle/pattern in evolving resource values. This cycle reveals itself after ~400-500 iterations allowing us to calculate it's length. Then we can simply use modulus to figure out which value in the cycle corresponds to the 1000000000th iteration.
+
+See also: Conway's Game of Life, Floyd's Tortoise and Hare
+
 ### Day 22
 
 Part 1 is straightforward - first calculate erosion level for borders, then calculate erosion levels for inner grid line by line. After that risk level is just sum erosion level mods over matrix.
@@ -104,6 +112,6 @@ See also: Dijkstra's algorithm, A* search algorithm, networkx.dijkstra_path_leng
 
 ### Day 24
 
-We mostly need to be just careful to implement all the rules and calculations correctly for choosing right attackers and targets. I used single groups list that I kept sorting to allow picking attackers in the correct order. Groups were never removed but rather ignored once their units count reached 0.
+We mostly need to be just careful to implement all the rules and calculations correctly for choosing right attackers and targets. I used single list for groups that I kept sorting to allow picking attackers in the correct order. Groups were never removed from taht list but rather ignored once their units count reached 0.
 
 For part 2 there are couple of tricky situations that may cause the battle to remain in loop and never end: 1) last remaining groups of opposite type may be immune to each other's damage; 2) last remaining groups may have too low attack damage to cause any change in target group's units count. If these situations are being handled correctly then finding minimum necessary immune system boost is just a matter of looping the simulation with increasing boost until immune system wins.
