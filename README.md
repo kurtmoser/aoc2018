@@ -104,13 +104,21 @@ See also: Conway's Game of Life, Floyd's Tortoise and Hare
 
 Part 1 runs in meaningful time giving us answer without problems. Part 2 is very time-consuming so solution is to decode and understand what program is doing, then calculate result via another means if possible. Inspecting part 1 we can see that it returns sum of all the prime factors of a value stored in register 2. So for part 2 figure out what is the value in register 2 and find sum of its prime factors.
 
+### Day 21
+
+Challenge states that we are allowed to change only register 0. This gives us a hint to observe where in the program this register is being used. It turns out it happens in a single spot where value in register 0 is compared to value in register 2. If values are equal then instruction pointer will be set to point outside program (i.e. cause program to halt). So we need to keep track of values in register 2 at the time of this comparison. First such value will be result for part 1. For part 2 lets assume that values in register 2 will start to repeat at some point and return the last value before the first repeating one.
+
+Note: before decoding program for part 2 I ran into some performance issues and found out about PyPy project - a faster alternative to standard CPython (former uses JIT while latter is interpreter).
+
+See also: PyPy3
+
 ### Day 22
 
 Part 1 is straightforward - first calculate erosion level for borders, then calculate erosion levels for inner grid line by line. After that risk level is just sum erosion level mods over matrix.
 
 Part 2 took some time to figure out what is the best approach to perform breadth first search where some steps take longer time than others (due to gear change). So for each coordinate I stored path how I got there (as a string of single char directions), but if the next move required gear change then I added to the new path not only new direction but also 7 additional characters for gear change. When simple breadth first search has new paths in queue already in shortest first order then now I needed to sort queue paths by length before picking next one.
 
-There was another issue with part 2 I struggled with - although algorithm worked (accidentally) correctly on sample data it gave close but not correct result on real input. Finally figured out the reason was that we cannot consider position visited simply based on coordinates. Instead we need to take into account also gear we are currently equipped with. Arriving at (x,y) with climbing gear generates different optimal path forward than arriving with torch or neither. Thus we need to rather keep track whether (x,y,gear) state has been visited and not just (x,y) position.
+There was another issue in part 2 I struggled with - although algorithm worked (accidentally) correctly on sample data it gave close but incorrect result on real input. Finally figured out the reason was that we cannot consider position visited simply based on coordinates. Instead we need to take into account also gear we are currently equipped with. Arriving at (x,y) with climbing gear generates different optimal path forward than arriving with torch or neither. Thus we need to rather keep track whether (x,y,gear) state has been visited and not just (x,y) position.
 
 See also: Dijkstra's algorithm, A* search algorithm, networkx.dijkstra_path_length
 
