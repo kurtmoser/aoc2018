@@ -114,6 +114,14 @@ See also: Conway's Game of Life, Floyd's Tortoise and Hare
 
 Part 1 runs in meaningful time giving us answer without problems. Part 2 is very time-consuming so solution is to decode and understand what program is doing, then calculate result via another means if possible. Inspecting part 1 we can see that it returns sum of all the prime factors of a value stored in register 2. So for part 2 figure out what is the value in register 2 and find sum of its prime factors.
 
+### Day 20
+
+For part 1 a good candidate to the furthest room is somewhere in the longest decoded regex path (this room is not necessarily the very last room of the path).
+
+Part 2 is more interesting and took me some time to solve due to wrong initial approach. Firstly note that any path shorter than 1000 can be ignored. Now the question becomes how could we eliminate unsuitable paths as early as possible. My initial idea was to solve it "inside-out" by first building longest path recursively and then at each innermost branching spot swap to shorter regex subpart until path length becomes < 1000. This proved to be too slow so instead I switched to "outside-in" approach where we first analyze outermost branching spot. "Outside-in" approach, even though a bit more difficult to implement, allows us to skip large parts of the tree and work only through on branches that contain paths long enough to possibly pass 1000 doors.
+
+Also note that skipping empty branches in spots like ...N(EE|)N... simplifies tree structure significantly.
+
 ### Day 21
 
 Challenge states that we are allowed to change only register 0. This gives us a hint to observe where in the program this register is being used. It turns out it happens in a single spot where value in register 0 is compared to value in register 2 - if values are equal then instruction pointer will be set to point outside program (i.e. cause program to halt). So we need to keep track of values in register 2 at the time of this comparison. First such value will be result for part 1. For part 2 lets assume that values in register 2 will start to repeat at some point and the last value before the first repeating one is our answer.
