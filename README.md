@@ -80,6 +80,16 @@ Both parts can be (or rather are intended to be) solved by brute force. Pay atte
 
 Slight optimization can be added by tracking whether we added one or two recipes on last iteration and avoiding second sublist check unless indeed necessary (this accounted for ~16s -> ~14s speed bump for part 2 on test machine but was left uncommited).
 
+### Day 15
+
+Noticeable increase in difficulty compared to earlier days. Main problem is finding minpaths to possible attack position - this can be done using breadth-first search. For that we can use queue that is initially filled with starting position. At each step add possible new positions (north, west, east, south) to queue if they are not yet there (if they are this means coordinate had been reached before via another shorter path) and move to the next item in queue. We finish at either finding ourselves adding destination coordinate to the queue (minpath found) or reaching the end of queue (no path exists to destination). It is important to pay attention to the order new coordinates are added to queue (top-to-bottom, left-to-right).
+
+Note: At one point I succumbed to running someone else's solution on my input data to track down bug in the code. After comparing our grid states round by round it turned out the problem was that I wasn't paying attention to top-down/left-right priorities when choosing attack spots of equal distance and instead assumed that the ones of higher priority targets always come before the ones of lower priority ones. Detecting this bug was made harder by the fact that none of the example battles contained such positioning of targets and thus all of them gave correct answer.
+
+Note: Some Python solutions in the discussions mentioned dataclasses and traitlets which are something new to look into
+
+See also: Breadth-first search
+
 ### Day 16
 
 Part 1 is straightforward execution of all possible operations over each sample instruction input and comparing received output with expected one. For part 2 gather possible decoded opcode candidates for encoded opcodes over all the samples. One encoded opcode will have exactly one decoded opcode candidate. Remove this decoded opcode from every other candidates list. Another encoded opcode will now have a single candidate. Repeat until all encoded opcodes has single decoded counterpart. Now we can translate encoded opcodes of input program to decoded ones and run program. Method deduct_opcodes itself is a bit out of place for Computer class, but lets keep it there for now.
@@ -106,7 +116,7 @@ Part 1 runs in meaningful time giving us answer without problems. Part 2 is very
 
 ### Day 21
 
-Challenge states that we are allowed to change only register 0. This gives us a hint to observe where in the program this register is being used. It turns out it happens in a single spot where value in register 0 is compared to value in register 2. If values are equal then instruction pointer will be set to point outside program (i.e. cause program to halt). So we need to keep track of values in register 2 at the time of this comparison. First such value will be result for part 1. For part 2 lets assume that values in register 2 will start to repeat at some point and return the last value before the first repeating one.
+Challenge states that we are allowed to change only register 0. This gives us a hint to observe where in the program this register is being used. It turns out it happens in a single spot where value in register 0 is compared to value in register 2 - if values are equal then instruction pointer will be set to point outside program (i.e. cause program to halt). So we need to keep track of values in register 2 at the time of this comparison. First such value will be result for part 1. For part 2 lets assume that values in register 2 will start to repeat at some point and the last value before the first repeating one is our answer.
 
 Note: before decoding program for part 2 I ran into some performance issues and found out about PyPy project - a faster alternative to standard CPython (former uses JIT while latter is interpreter).
 
