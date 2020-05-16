@@ -140,6 +140,12 @@ There was another issue in part 2 I struggled with - although algorithm worked (
 
 See also: Dijkstra's algorithm, A* search algorithm, networkx.dijkstra_path_length
 
+### Day 23
+
+Part 1 is trivial. Part 2 I'd consider mathematically most difficult of current year's challenges i.e. there is little chance of figuring out correct algorithm without some prior math knowledge of how to approach the problem. My current solution is more lucky than anything to give the correct answer, works very slow and probably gives wrong answer on bunch of other inputs. But it goes as follows - use the bot that is in the range of most bots as starting point. Pick cube of 10Mx10Mx10M around it and split it into 100x100x100 cubes (each with side length of 100'000). Count nanobots at the center of each subcube and pick the point with highest in range count (prefer closest one to the center in case of equal range counts). Use this point as next starting point and reduce outer cube to 1Mx1Mx1M. Repeat splitting into subcubes and calculating nanobot ranges at their centers picking again highest in range count as next starting point. Continue until outer cube has been reduced to 100x100x100 and we scan each point within it. With little bit of good luck we'll have our correct answer.
+
+See also: Z3 solver
+
 ### Day 24
 
 We mostly need to be just careful to implement all the rules and calculations correctly for choosing right attackers and targets. I used single list for groups that I kept sorting to allow picking attackers in the correct order. Groups were never removed from taht list but rather ignored once their units count reached 0.
